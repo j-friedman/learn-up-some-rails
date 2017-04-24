@@ -1,0 +1,48 @@
+<table class="table">
+    <tr>
+        <%= form_for @task do |f| %>
+            <td colspan="2" class="form-inline">
+                <div class="form-group new-task-form">
+                    <%= f.select :priority, [nil, 1, 2, 3], :class => 'form-control' %>
+                </div>
+            </td>
+            <td colspan="2" class="form-inline alight-right">
+                <div class="form-group new-task-form">
+                    <%= f.text_field :name, :class => 'new-task-name' %>
+                    <%= button_tag type: 'submit', class: 'form-control btn btn-primary' do %>
+                        <i class="glyphicon glyphicon-plus"></i>
+                    <% end %>
+                </div>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr>
+        <th>&nbsp;</th>
+        <th><i class="glyphicon glyphicon-flash"></i></th>
+        <th>Task</th>
+        <th>&nbsp;</th>
+    </tr>
+
+
+    <% @tasks.each do |task| %>
+        <tr class="<%= "danger" if not task.is_done and task.priority == 1 %> <%= "active" if task.is_done %>">
+            <td width="5%">
+                <% if task.is_done %>
+                    <i class="glyphicon glyphicon-check" aria-hidden="true"></i>
+                <% else %>
+                    <i class="glyphicon glyphicon-unchecked" aria-hidden="true"></i>
+                <% end %>
+            </td>
+            <td width="5%">
+                <% if task.priority %>
+                    <%= task.priority %>
+                <% end %>
+            <td><%= task.name %></td>
+            <td class="text-right">
+                <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_task_path(task) %> |
+                <%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+        </tr>
+    <% end %>
+</table>

@@ -1,0 +1,19 @@
+
+<div>
+    <% if @task.is_done %>
+        <i class="glyphicon glyphicon-check" aria-hidden="true"></i>
+    <% else %>
+        <i class="glyphicon glyphicon-unchecked" aria-hidden="true"></i>
+    <% end %>
+
+    <%= @task.name %>
+
+    <% if @task.priority %>
+        (<%= @task.priority %>)
+    <% end %>
+</div>
+
+<p>
+    <%= link_to 'Edit', edit_task_path %> |
+    <%= link_to 'View tasks', tasks_path %>
+</p>
